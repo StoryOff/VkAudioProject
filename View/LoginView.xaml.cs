@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using VkAudioProject.ViewModels;
 
 namespace VkAudioProject.View
 {
@@ -21,6 +22,18 @@ namespace VkAudioProject.View
         public LoginView()
         {
             InitializeComponent();
+            var vm = new LoginViewModel();
+            DataContext = vm;
+            if (vm.CloseAction == null)
+                vm.CloseAction = new Action(() => Close());
+        }
+
+        private void LoginWindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (Settings.Instance.Token == null)
+            {
+                e.Cancel = true;
+            }
         }
     }
 }

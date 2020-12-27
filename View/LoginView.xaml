@@ -8,31 +8,34 @@
         Title="Login"
         SizeToContent="WidthAndHeight"
         MinWidth="500"
-        MinHeight="200"
+        MinHeight="100"
         WindowStartupLocation="CenterScreen"
         WindowStyle="SingleBorderWindow"
         ResizeMode="NoResize"
-        mah:ShowCloseButton="False">
+        mah:ShowCloseButton="False"
+        Closing="LoginWindowClosing">
     <StackPanel>
-        <TextBox mah:TextBoxHelper.Watermark="                 Login" FontFamily="Segoe Print" FontSize="30">
-            <TextBox.Background>
-                <RadialGradientBrush>
-                    <GradientStop Color="Black" Offset="1" />
-                    <GradientStop Color="#FFDE207F" />
-                </RadialGradientBrush>
-            </TextBox.Background>
-        </TextBox>
-        <PasswordBox x:Name="PasswordBox" FontFamily="Segoe Print" FontSize="30"
+        <StackPanel Visibility="{Binding IsLogPassVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <TextBox mah:TextBoxHelper.Watermark="                 Login" FontFamily="Segoe Print" FontSize="30" Text="{Binding Login}">
+                <TextBox.Background>
+                    <RadialGradientBrush>
+                        <GradientStop Color="Black" Offset="1" />
+                        <GradientStop Color="#FFDE207F" />
+                    </RadialGradientBrush>
+                </TextBox.Background>
+            </TextBox>
+            <PasswordBox x:Name="PasswordBox" FontFamily="Segoe Print" FontSize="30"
                                  mah:TextBoxHelper.Watermark="              Password"
                                  PasswordChar="*">
-            <PasswordBox.Background>
-                <RadialGradientBrush>
-                    <GradientStop Color="Black" Offset="1" />
-                    <GradientStop Color="#FFDE207F" />
-                </RadialGradientBrush>
-            </PasswordBox.Background>
-        </PasswordBox>
-        <Button Command="{Binding AuthorizeCommand}" CommandParameter="{Binding ElementName=PasswordBox}"
+                <PasswordBox.Background>
+                    <RadialGradientBrush>
+                        <GradientStop Color="Black" Offset="1" />
+                        <GradientStop Color="#FFDE207F" />
+                    </RadialGradientBrush>
+                </PasswordBox.Background>
+            </PasswordBox>
+        </StackPanel>
+        <Button IsHitTestVisible="{Binding IsOkBtnActive, Converter={StaticResource BooleanToVisibilityConverter}}" Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=PasswordBox}"
                     Content="Ok" Height="65"
                     FontWeight="Bold" FontSize="30" FontFamily="Segoe Print">
             <Button.Background>
@@ -42,5 +45,13 @@
                 </RadialGradientBrush>
             </Button.Background>
         </Button>
+        <TextBox mah:TextBoxHelper.Watermark="           Two Auth Code" FontFamily="Segoe Print" FontSize="30" Visibility="{Binding IsTwoAuthVisible, Converter={StaticResource BooleanToVisibilityConverter}}" Text="{Binding TwoAuthCode}">
+            <TextBox.Background>
+                <RadialGradientBrush>
+                    <GradientStop Color="Black" Offset="1" />
+                    <GradientStop Color="#FFDE207F" />
+                </RadialGradientBrush>
+            </TextBox.Background>
+        </TextBox>
     </StackPanel>
 </mah:MetroWindow>
